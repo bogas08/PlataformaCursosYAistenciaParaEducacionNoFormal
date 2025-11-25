@@ -1,0 +1,64 @@
+{% extends 'cursos/base.html' %}
+{% load static %}
+
+{% block title %} Perfil {% endblock %}
+
+{% block content %}
+<div class="perfil-container">
+  <div class="foto-perfil">
+    <img id="preview-img" src="{% static 'perfiles/perfil_defecto.png' %}" alt="Foto de perfil">
+    <label for="upload-input" class="upload-btn">Subir Imagen</label>
+    <input type="file" id="upload-input" accept="image/*" style="display: none;">
+  </div>
+  
+  <div class="infoPerfil">
+    <h2>Perfil de {{ user.username }}</h2>
+    <h3>Profesor: {{ profesor.nombre }}</h3>
+    <h3>Especialidad: {{ profesor.especialidad }}</h3>
+    <p><strong>Biografía:</strong> {{ perfil.biografia|default:"No proporcionada." }}</p>
+    <p><strong>Idioma Nativo:</strong> {{ perfil.idioma_nativo|default:"No especificado." }}</p>
+    <p><strong>Intereses:</strong> {{ perfil.intereses|default:"No especificados." }}</p>
+  </div>
+  <div class="perfil-editar-btn">
+    <a href="{% url 'editar_perfil' %}">
+      <button class="btn-editar-perfil">Editar información</button>
+    </a>
+  </div>
+</div>
+<h4 class="perfilCursos-titulo">Cursos que imparte:</h4>
+<div class="perfilCursos">
+  {% for curso in cursos %}
+    <div class="curso-card">
+      <div class="curso-info">
+        <h5>{{ curso.titulo }}</h5>
+        <div class="curso-links">
+          <a href="{% url 'subir_material_extra' curso.id %}">Ver Recursos</a>
+          <a href="{% url 'detalle_curso' curso.id %}">
+            <button class="detalle-btn">Más Detalles</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No estás impartiendo ningún curso actualmente.</p>
+  {% endfor %}
+</div>
+
+
+
+<script>
+  const input = document.getElementById('upload-input');
+  const img = document.getElementById('preview-img');
+
+  input.addEventListener('change', function () {
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        img.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'cursos/base.html' %}
+{% load static %}
+
+{% block title %} Perfil {% endblock %}
+
+{% block content %}
+<div class="perfil-layout">
+  <div class="perfil-izquierda">
+    <div class="foto-perfil">
+      <img id="preview-img" src="{% static 'perfiles/perfil_defecto.png' %}" alt="Foto de perfil">
+      <label for="upload-input" class="upload-btn">Subir Imagen</label>
+      <input type="file" id="upload-input" accept="image/*" style="display: none;">
+    </div>
+
+    <div class="infoPerfil">
+      <h2>Perfil de {{ user.username }}</h2>
+      <h3>Estudiante</h3>
+      <p><strong>Biografía:</strong> {{ perfil.biografia|default:"No proporcionada." }}</p>
+      <p><strong>Idioma Nativo:</strong> {{ perfil.idioma_nativo|default:"No especificado." }}</p>
+      <p><strong>Intereses:</strong> {{ perfil.intereses|default:"No especificados." }}</p>
+    </div>
+    <div class="edit_btn">
+      <a href="{% url 'editar_perfil' %}">
+        <button class="btn_editar">Editar información</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="perfil-derecha">
+    <h2>Mis Cursos</h2>
+    <div class="perfilCursos_est">
+      {% for curso in cursos_info %}
+        <div class="tarjetaMaterial">
+          <h3 class="titulo-curso_estudiante">{{ curso.titulo_curso }}</h3>
+          <div class="barra-progreso">
+            <div class="barra-progreso-llenado" data-porcentaje="{{ curso.porcentaje }}">
+              <span class="barra-texto">{{ curso.porcentaje }}% completado</span>
+            </div>
+          </div>
+
+          <strong><h4>Completados:</h4></strong>
+          <ul>
+            {% for material in curso.materiales %}
+              {% if material.estado == "completado" %}
+                <li>
+                  <a href="{% url 'ver_recurso' material.id %}">{{ material.titulo }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+
+          <strong><h4>No Completados:</h4></strong>
+          <ul>
+            {% for material in curso.materiales %}
+              {% if material.estado != "completado" %}
+                <li>
+                  <a href="{% url 'ver_recurso' material.id %}">{{ material.titulo }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% empty %}
+        <p>No estás inscrito en ningún curso.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  const input = document.getElementById('upload-input');
+  const img = document.getElementById('preview-img');
+
+  input.addEventListener('change', function () {
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        img.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const barras = document.querySelectorAll(".barra-progreso-llenado");
+
+    barras.forEach(barra => {
+      const porcentaje = parseInt(barra.dataset.porcentaje || 0);
+      let width = 0;
+      const animar = () => {
+        if (width < porcentaje) {
+          width++;
+          barra.style.width = width + "%";
+          requestAnimationFrame(animar);
+        }
+      };
+      requestAnimationFrame(animar);
+    });
+  });
+</script>
+{% endblock %}

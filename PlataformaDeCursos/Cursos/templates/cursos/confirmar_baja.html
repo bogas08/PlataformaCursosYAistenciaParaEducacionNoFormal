@@ -1,0 +1,14 @@
+{% extends 'cursos/base.html' %}
+
+{% block title %} Confirmar baja {% endblock %}
+
+{% block content %}
+<h2>Confirmar Abandonar curso: {{ curso.titulo }}</h2>
+<p>¿Estás seguro que deseas salir de este curso?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Salir del Curso</button>
+    <a href="{% url 'detalle_curso' curso.id %}"><button type="button">Cancelar</button></a>
+</form>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'cursos/base.html' %}
+
+{% block title %}Subir Material{% endblock %}
+
+{% comment %} # muestra los recursos subidos por el profesor y un formulario de subir recursos {% endcomment %}
+
+{% block content %}
+<h2 class="subir-material__titulo">Subir Recurso extra: {{ curso.titulo }}</h2>
+
+<div class="subir-material__contenedor">
+    <div class="subir-material__columna subir-material__lista">
+        {% if material_extra %}
+            <h3 class="subir-material__subtitulo">Recursos subidos por mi:</h3>
+            <ul class="subir-material__items">
+                {% for material in material_extra %}
+                    <li class="subir-material__item">
+                        <a href="{{ material.archivo.url }}" class="subir-material__link">{{ material.titulo }}</a>
+                         <a href="{% url 'eliminar_material_extra' material.id %}" style="color: red;">
+                            Eliminar
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="subir-material__vacio">No hay recurso extra disponible para este curso.</p>
+        {% endif %}
+    </div>
+
+    <div class="subir-material__columna subir-material__form">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="subir-material__form-campos">
+                {{ form.as_p }}
+            </div>
+            <div class="subir-material__botones">
+                <button type="submit" class="btn btn--primario">Subir Recurso</button>
+                <a href="{% url 'perfil_usuario' %}">
+                    <button type="button" class="btn btn--secundario">Cancelar</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,92 @@
+{% extends 'cursos/base.html' %}
+
+{% block title %} Panel del Profesor {% endblock %}
+
+{% block content %}
+<div class="contenido-panel-profesor">
+  <h2 class="titulo-principal">Cursos Impartidos</h2>
+
+  {% for item in cursos_con_inscripciones %}
+    <div class="card-curso">
+      <div class="cabecera-curso">
+        <h3 class="titulo-curso">{{ item.curso.titulo }}</h3>
+        <span class="contador-estudiantes">
+          👥 {{ item.estudiantes|length }} inscritos
+        </span>
+      </div>
+      <p class="descripcion-curso">{{ item.curso.descripcion }}</p>
+
+      {% if item.estudiantes %}
+        <div class="tabla-container">
+          <table class="tabla">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Progreso</th>
+                <th>Recursos</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for estudiante in item.estudiantes %}
+                <tr>
+                  <!--Muestra nombre completo-->
+                  <td>
+                    {% with estudiante.inscripcion.user as u %}
+                      {% if u.first_name or u.last_name %}
+                        {{ u.first_name }} {{ u.last_name }}
+                      {% else %}
+                        {{ estudiante.inscripcion.nombre_estudiante|default:"-" }}
+                      {% endif %}
+                    {% endwith %}
+                  </td>
+                  <td>
+                    {% if estudiante.inscripcion.user %}
+                      {{ estudiante.inscripcion.user.username }}
+                    {% else %}
+                      -
+                    {% endif %}
+                  </td>
+                  <td>
+                    {{ estudiante.inscripcion.email_estudiante }}
+                  </td>
+                  <td>
+                    <div class="barra-progreso_profesor">
+                      <div class="barra-progreso-llenado_profesor" data-porcentaje="{{ estudiante.progreso }}">
+                        <span class="barra-texto_profesor">{{ estudiante.progreso }}% completado</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{{ estudiante.completados }} / {{ estudiante.total_recursos }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="texto-inscrito">No hay estudiantes inscritos.</p>
+      {% endif %}
+
+      <div class="btn-container">
+        <a href="{% url 'subir_material_extra' item.curso.id %}" class="btn-subir">
+          📁 Subir Material Extra
+        </a>
+      </div>
+    </div>
+  {% empty %}
+    <p class="texto-inscrito">No tienes cursos asignados.</p>
+  {% endfor %}
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const barras = document.querySelectorAll(".barra-progreso-llenado_profesor");
+
+    barras.forEach(barra => {
+      const porcentaje = parseInt(barra.dataset.porcentaje || 0);
+      barra.style.width = porcentaje + "%";
+    });
+  });
+</script>
+
+{% endblock %}

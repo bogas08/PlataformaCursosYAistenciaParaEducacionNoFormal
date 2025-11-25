@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/estilos_generales.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_cursos.css' %}?v=1">
+    <link rel="stylesheet" href="{% static 'css/estilos_barraNavegacion.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_verRecurso.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_editarInformacion.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_panelProfesor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_perfil_usuario.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_progresoEstudiante.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_detalleCurso.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_inscripcion.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_perfilProfesor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos_subirMaterialExtra.css' %}">
+    <title>{% block title %}Plataforma Cursos{% endblock %}</title>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-container">
+        <h1 class="logo">Plataforma de Cursos</h1>
+        <nav class="nav-links">
+          {% comment %} Redirige Inicio al panel de control si es profesor o listar cursos si es estudiante {% endcomment %}
+          <a href=" {% if user.is_authenticated and user.profesor %}
+                      {% url 'dashboard' %}
+                    {% else %}
+                      {% url 'lista_cursos' %}
+                    {% endif %}">
+                    📚 Inicio
+          </a>
+          {% comment %} Ver listado de cursos si es profesor, el estudiante con el boton Inicio vee el listado {% endcomment %}
+          {% if user.is_authenticated and user.profesor %}
+            <a href="{% url 'lista_cursos' %}">📖 Ver listado de cursos</a>
+          {% endif %}
+          {% comment %} El profesor no puede ver su progreso dado que no esta inscrito a cursos {% endcomment %}
+          {% if user.is_authenticated and not user.profesor %}
+            <a href="{% url 'progreso_estudiante' %}">📈 Ver mi progreso</a>
+          {% endif %}
+  
+          {% if user.is_authenticated %}
+            <a href="{% url 'perfil_usuario' %}" class="perfil-usuario-enlace">
+              <span class="welcome-text">👤 {{ user.username }}</span>
+            </a>
+            <form action="{% url 'logout' %}" method="post" class="logout-form">
+              {% csrf_token %}
+              <button type="submit">Cerrar sesión</button>
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <div class="contenido">
+      {% block content %}{% endblock %}
+    </div>
+    {% comment %} muestra mensajes en el cambio de user y contra {% endcomment %}
+    {% if messages %}
+      <div id="popup-message" class="popup-message {% for message in messages %}{{ message.tags }}{% endfor %}">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+    {% endif %}
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        var popup = document.getElementById('popup-message');
+        if (popup) {
+          setTimeout(function() {
+            popup.style.opacity = '0';
+            setTimeout(function() {
+              popup.style.display = 'none';
+            }, 500);
+          }, 3000); 
+        }
+      });
+    </script>
+  </body>
+</html>
+

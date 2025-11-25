@@ -1,0 +1,56 @@
+{% extends 'cursos/base.html' %}
+
+{% block title %} Progreso | Cursos {% endblock %}
+
+{% block content %}
+<div class="contenedor-progreso">
+    <h2 class="titulo-principal">Mi progreso en los cursos</h2>
+
+    {% if progreso_por_curso %}
+        <div class="grid-cursos">
+            {% for curso_id, datos in progreso_por_curso.items %}
+                <div class="card-curso">
+                    <h3 class="titulo-curso">{{ datos.curso.titulo }}</h3>
+                    <div class="barra-progreso">
+                        <div class="barra-progreso-llenado" data-porcentaje="{{ datos.porcentaje|default:0 }}"></div>
+                    </div>
+                    <p><strong>Recursos completados:</strong> {{ datos.completados }} de {{ datos.total }}</p>
+                    <ul class="lista-recursos">
+                        {% for recurso in datos.recursos %}
+                            <li class="item-recurso">
+                                <a href="{% url 'ver_recurso' recurso.id %}">{{ recurso.titulo }}</a>
+                                {% if recurso.id in datos.completados_ids %}
+                                    <span class="completado">✅</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    {% if datos.porcentaje == 100 %}
+                        <div class="medalla-curso">🎉 ¡Curso completado!</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="sin-cursos">No estás inscrito en ningún curso aún.</p>
+    {% endif %}
+
+    <div class="volver-btn">
+        <a href="{% url 'lista_cursos' %}">
+            <button>Volver a cursos</button>
+        </a>
+    </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const barras = document.querySelectorAll(".barra-progreso-llenado");
+
+    barras.forEach(barra => {
+      const porcentaje = parseInt(barra.dataset.porcentaje || 0);
+      barra.style.width = porcentaje + "%";
+    });
+  });
+</script>
+
+{% endblock %}

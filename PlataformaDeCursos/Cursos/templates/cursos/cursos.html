@@ -1,0 +1,76 @@
+{% extends 'cursos/base.html' %} 
+{% load static %} 
+{% block content %}
+
+{% comment %} LISTA TODOS LOS CURSOS DISPONIBLES EN LA PLATAFORMA {% endcomment %}
+
+{% if user.is_authenticated and not user.profesor %}
+  <h2 class="titulo-principal">Cursos Inscritos</h2>
+{% endif %}
+
+<div class="contenedor-cursos">
+  {% for curso in cursos %}
+    {% if curso.id in cursos_inscritos_ids %}
+      <div class="tarjeta-curso inscrito">
+        <!--MOSTRANDO VENTANA EMERGENTE DE Profesor -->
+        <div class="profesor-tooltip-container profesor-posicion">
+          <span class="profesor-nombre">Profesor: {{ curso.profesor.nombre }}</span>
+          <div class="tooltip-perfil">
+            <img src="{% static 'perfiles/perfil_defecto.png' %}" alt="Foto perfil" class="tooltip-img">
+            <div class="tooltip-info">
+              <h4>{{ curso.profesor.nombre }}</h4>
+              <p><strong>Especialidad:</strong> {{ curso.profesor.especialidad }}</p>
+              <p><strong>Biografía:</strong> {{ curso.profesor.user.perfil.biografia|default:"-"}}</p>
+              <p><strong>Intereses:</strong> {{ curso.profesor.user.perfil.intereses|default:"-" }}</p>
+            </div>
+          </div>
+        </div>
+        <!------------------------------------------>
+        <h3 class="titulo-curso">{{ curso.titulo }}</h3>
+        <p class="descripcion-curso">{{ curso.descripcion }}</p>
+        <div class="acciones-curso">
+          <a href="{% url 'detalle_curso' curso.id %}" class="btn-detalles">Ver detalles</a>
+          <span class="inscrito-etiqueta">Ya inscrito</span>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<h2 class="titulo-principal">Cursos Disponibles</h2>
+<div class="contenedor-cursos">
+  {% for curso in cursos %}
+    {% if curso.id not in cursos_inscritos_ids %}
+    <div class="tarjeta-curso no-inscrito">
+      <!--MOSTRANDO VENTANA EMERGENTE DE Profesor -->
+      <div class="profesor-tooltip-container profesor-posicion">
+        <span class="profesor-nombre">Profesor: {{ curso.profesor.nombre }}</span>
+        <div class="tooltip-perfil">
+          <img src="{% static 'perfiles/perfil_defecto.png' %}" alt="Foto perfil" class="tooltip-img">
+          <div class="tooltip-info">
+            <h4>{{ curso.profesor.nombre }}</h4>
+            <p><strong>Especialidad:</strong> {{ curso.profesor.especialidad }}</p>
+            <p><strong>Biografía:</strong> {{ curso.profesor.user.perfil.biografia|default:"-"}}</p>
+            <p><strong>Intereses:</strong> {{ curso.profesor.user.perfil.intereses|default:"-" }}</p>
+          </div>
+        </div>
+      </div>
+      <!------------------------------------------>
+      <h3 class="titulo-curso">{{ curso.titulo }}</h3>
+      <p class="descripcion-curso">{{ curso.descripcion }}</p>
+      <div class="acciones-curso">
+        <a href="{% url 'detalle_curso' curso.id %}" class="btn-detalles">Ver detalles</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'inscribirse_curso' curso.id %}" class="btn-inscribirse">Inscribirse</a>
+        {% else %}
+        <p class="login-requerido">
+          <a href="{% url 'login' %}">Inicia sesión</a> para inscribirte.
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% endblock %}

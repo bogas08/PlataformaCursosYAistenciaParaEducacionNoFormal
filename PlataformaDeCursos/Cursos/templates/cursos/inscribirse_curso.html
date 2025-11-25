@@ -1,0 +1,26 @@
+
+{% extends 'cursos/base.html' %}
+
+{% comment %} Espacio block para el titulo de la pagina {% endcomment %}
+
+{% block title %} Inscripcion | Curso {% endblock %}
+
+{% comment %} PLANTILLA PARA LA INSCRIPCIÓN A UN CURSO {% endcomment %}
+
+{% block content %}
+<div class="inscripcion-curso-container">
+    <h2 class="inscripcion-titulo">Inscribirse al curso: {{ curso.titulo }}</h2>
+
+    <form method="post" class="inscripcion-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="inscripcion-btn inscripcion-btn-enviar">Inscribirse</button>
+    </form>
+
+    <div class="inscripcion-cancelar">
+        <form action="{% url 'detalle_curso' curso.id %}" method="get" class="inscripcion-form">
+            <button type="submit" class="inscripcion-btn inscripcion-btn-cancelar">Cancelar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
