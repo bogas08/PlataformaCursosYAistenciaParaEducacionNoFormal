@@ -25,7 +25,7 @@
         <h1 class="logo">Plataforma de Cursos</h1>
         <nav class="nav-links">
           {% comment %} Redirige Inicio al panel de control si es profesor o listar cursos si es estudiante {% endcomment %}
-          <a href=" {% if user.is_authenticated and user.profesor %}
+          <a href=" {% if user.is_authenticated and user|dictsort:"profesor" %}
                       {% url 'dashboard' %}
                     {% else %}
                       {% url 'lista_cursos' %}
@@ -33,12 +33,16 @@
                     📚 Inicio
           </a>
           {% comment %} Ver listado de cursos si es profesor, el estudiante con el boton Inicio vee el listado {% endcomment %}
-          {% if user.is_authenticated and user.profesor %}
-            <a href="{% url 'lista_cursos' %}">📖 Ver listado de cursos</a>
+          {% if user.is_authenticated %}
+            {% if user.profesor %}
+              <a href="{% url 'lista_cursos' %}">📖 Ver listado de cursos</a>
+            {% endif %}
           {% endif %}
           {% comment %} El profesor no puede ver su progreso dado que no esta inscrito a cursos {% endcomment %}
-          {% if user.is_authenticated and not user.profesor %}
-            <a href="{% url 'progreso_estudiante' %}">📈 Ver mi progreso</a>
+          {% if user.is_authenticated %}
+            {% if not user.profesor %}
+              <a href="{% url 'progreso_estudiante' %}">📈 Ver mi progreso</a>
+            {% endif %}
           {% endif %}
   
           {% if user.is_authenticated %}
