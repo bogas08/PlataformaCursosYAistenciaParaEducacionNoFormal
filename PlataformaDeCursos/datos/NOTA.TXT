@@ -1,0 +1,11 @@
+******* GUARDAR BASE DE DATOS EN FORMATO JSON ********
+
+ - python manage.py dumpdata > datos/datos.json
+
+******** PASOS PARA CARGAR LA BASE DE DATOS PREDEFINIDAS ********* 
+
+ - python manage.py migrate                      --> Cargamos los modelos
+ - python manage.py loaddata datos/datos.json    --> Cargamos la BD, del formato json.
+
+*****************************************************************************************
+Se recomienda guardar una copia de seguridad en caso de llenado manual o testeo de la BD.
