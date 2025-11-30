@@ -1,0 +1,1051 @@
+/* ===== ESTILOS GLOBALES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f7fa;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.logout-form button {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-form button:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.contenido {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* ===== FORMULARIO EDITAR PERFIL ===== */
+.editar-perfil-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.editar-perfil-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.form-editar-perfil h3 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: 600;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.help-text {
+    display: block;
+    margin-top: 0.25rem;
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.error-text {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+.btn_editar {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.btn_editar:hover {
+    transform: translateY(-2px);
+}
+
+/* Estilo específico para el botón cancelar */
+.btn_editar[style*="background:#ccc"] {
+    background: #6c757d !important;
+    color: white !important;
+}
+
+.btn_editar[style*="background:#ccc"]:hover {
+    background: #545b62 !important;
+    transform: translateY(-2px);
+}
+
+/* Enlace cambiar contraseña */
+.editar-perfil-container a[href*="cambio_password"] {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.editar-perfil-container a[href*="cambio_password"]:hover {
+    text-decoration: underline;
+}
+
+/* ===== FORMULARIO LOGIN ESPECÍFICO ===== */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    padding: 2rem;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.login-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
+}
+
+.login-form p {
+    margin-bottom: 1.5rem;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 0.5rem;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.login-container .text-center {
+    text-align: center;
+    margin-top: 0;
+    color: #666;
+}
+
+.login-container .link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-container .link:hover {
+    text-decoration: underline;
+}
+
+/* ===== FORMULARIOS GENERALES ===== */
+.envoltorio-formulario,
+.inscripcion-curso-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.tarjeta-formulario,
+.inscripcion-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.titulo-formulario,
+.subtitulo-formulario {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.titulo-formulario {
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.subtitulo-formulario {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.formulario p {
+    margin-bottom: 1rem;
+}
+
+.formulario label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.boton-formulario,
+.inscripcion-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.boton-formulario:hover,
+.inscripcion-btn:hover {
+    transform: translateY(-2px);
+}
+
+.inscripcion-btn-cancelar {
+    background: #6c757d !important;
+}
+
+.mensaje-secundario {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.link {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* ===== TARJETAS DE CURSO ===== */
+.contenedor-cursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tarjeta-curso {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.tarjeta-curso:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.tarjeta-curso.inscrito {
+    border-left: 4px solid #28a745;
+}
+
+.tarjeta-curso.no-inscrito {
+    border-left: 4px solid #007bff;
+}
+
+.titulo-curso {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.descripcion-curso {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.acciones-curso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-detalles,
+.btn-inscribirse {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.btn-detalles {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-inscribirse {
+    background: #007bff;
+    color: white;
+}
+
+.inscrito-etiqueta {
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* ===== DETALLES DE CURSO ===== */
+.curso-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.curso-titulo {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.curso-detalle p {
+    margin-bottom: 0.5rem;
+}
+
+.curso-subtitulo {
+    margin: 1.5rem 0 1rem 0;
+    color: #333;
+}
+
+.curso-lista-inscritos {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.curso-lista-inscritos li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.curso-botones {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.curso-btn {
+    padding: 0.75rem 1.5rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.curso-btn:hover {
+    background: #0056b3;
+}
+
+.curso-btn-inscribirse {
+    background: #28a745;
+}
+
+.curso-btn-cancelar {
+    background: #dc3545;
+}
+
+/* ===== PANEL PROFESOR ===== */
+.contenido-panel-profesor {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.titulo-principal {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.card-curso {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.cabecera-curso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.contador-estudiantes {
+    background: #e9ecef;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.tabla-container {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.tabla th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.btn-container {
+    margin-top: 1rem;
+}
+
+.btn-subir {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-subir:hover {
+    background: #218838;
+}
+
+/* ===== BARRAS DE PROGRESO ===== */
+.barra-progreso,
+.barra-progreso_profesor {
+    width: 100%;
+    height: 20px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0.5rem 0;
+}
+
+.barra-progreso-llenado,
+.barra-progreso-llenado_profesor {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+    position: relative;
+}
+
+.barra-texto,
+.barra-texto_profesor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* ===== PERFIL DE USUARIO ===== */
+.perfil-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+}
+
+.perfil-izquierda,
+.perfil-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.foto-perfil img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #667eea;
+    margin-bottom: 1rem;
+}
+
+.upload-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+    background: #0056b3;
+}
+
+.infoPerfil {
+    text-align: left;
+    margin-top: 1.5rem;
+}
+
+.infoPerfil h2 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.infoPerfil h3 {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.infoPerfil p {
+    margin-bottom: 0.5rem;
+}
+
+.btn_editar,
+.btn-editar-perfil {
+    padding: 0.75rem 1.5rem;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.btn_editar:hover,
+.btn-editar-perfil:hover {
+    background: #5a6fd8;
+}
+
+.perfil-derecha {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.perfilCursos_est {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.tarjetaMaterial {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.titulo-curso_estudiante {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.lista-recursos {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.item-recurso {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-recurso a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.item-recurso a:hover {
+    text-decoration: underline;
+}
+
+.completado {
+    color: #28a745;
+    margin-left: 0.5rem;
+}
+
+.medalla-curso {
+    text-align: center;
+    font-weight: bold;
+    color: #ffc107;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+/* ===== SUBIR MATERIAL ===== */
+.subir-material__contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.subir-material__titulo {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.subir-material__columna {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.subir-material__subtitulo {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.subir-material__items {
+    list-style: none;
+}
+
+.subir-material__item {
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subir-material__link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.subir-material__link:hover {
+    text-decoration: underline;
+}
+
+.subir-material__form-campos {
+    margin-bottom: 1.5rem;
+}
+
+.subir-material__botones {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.btn--primario {
+    background: #007bff;
+    color: white;
+}
+
+.btn--primario:hover {
+    background: #0056b3;
+}
+
+.btn--secundario {
+    background: #6c757d;
+    color: white;
+}
+
+.btn--secundario:hover {
+    background: #545b62;
+}
+
+/* ===== RECURSOS ===== */
+.recurso-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.recurso-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.recurso-titulo {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.recurso-descripcion {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.recurso-download {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.3s;
+}
+
+.recurso-download:hover {
+    background: #218838;
+}
+
+.recurso-form {
+    margin-bottom: 1.5rem;
+}
+
+.completar-btn {
+    padding: 0.75rem 1.5rem;
+    background: #ffc107;
+    color: #212529;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.completar-btn:not(:disabled):hover {
+    background: #e0a800;
+}
+
+.completar-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.estado-completado {
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.recurso-botones {
+    display: flex;
+    gap: 1rem;
+}
+
+/* ===== TOOLTIP PROFESOR ===== */
+.profesor-tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.profesor-nombre {
+    color: #666;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.tooltip-perfil {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 250px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    display: flex;
+    gap: 1rem;
+    text-align: left;
+}
+
+.profesor-tooltip-container:hover .tooltip-perfil {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltip-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.tooltip-info h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.tooltip-info p {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    color: #666;
+}
+
+/* ===== MENSAJES ===== */
+.popup-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    z-index: 1000;
+    transition: opacity 0.5s;
+}
+
+.popup-message.success {
+    background: #28a745;
+}
+
+.popup-message.error {
+    background: #dc3545;
+}
+
+.popup-message.warning {
+    background: #ffc107;
+    color: #212529;
+}
+
+.popup-message.info {
+    background: #17a2b8;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .perfil-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .subir-material__contenedor {
+        grid-template-columns: 1fr;
+    }
+    
+    .contenedor-cursos {
+        grid-template-columns: 1fr;
+    }
+    
+    .recurso-botones,
+    .subir-material__botones,
+    .curso-botones {
+        flex-direction: column;
+    }
+    
+    .contenido {
+        padding: 0 1rem;
+    }
+}
+
+/* ===== ESTADOS ESPECIALES ===== */
+.sin-cursos,
+.texto-inscrito,
+.subir-material__vacio {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.volver-btn {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.volver-btn button {
+    padding: 0.75rem 1.5rem;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.volver-btn button:hover {
+    background: #545b62;
+}
+
+.login-requerido {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.login-requerido a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-requerido a:hover {
+    text-decoration: underline;
+}
