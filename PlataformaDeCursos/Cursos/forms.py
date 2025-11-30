@@ -1,5 +1,5 @@
 from django import forms
-from .models import Inscripcion , MaterialExtra, Perfil
+from .models import Inscripcion , MaterialExtra, Perfil, Sesion, Asistencia
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 #   FORMULARIO PARA LA INSCRIPCION DE UN USUARIO A UN CURSO X
@@ -37,3 +37,20 @@ class EditarPerfilForm(forms.ModelForm):
             'email': 'Correo electrónico',
             
         }
+        
+class SesionForm(forms.ModelForm):
+    class Meta:
+        model = Sesion
+        fields = ['curso', 'titulo', 'fecha']
+        label = {
+            'curso': 'Curso',
+            'titulo': 'Titulo de la Sesion',
+            'fecha': 'fecha de la sesion'
+        }
+        
+class AsistenciaForm(forms.ModelForm):
+    presente = forms.BooleanField(required=False)
+    
+    class Meta:
+        model = Asistencia
+        fields = ['presente']

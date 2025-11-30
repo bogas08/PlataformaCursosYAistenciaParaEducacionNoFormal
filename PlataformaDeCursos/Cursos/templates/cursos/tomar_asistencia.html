@@ -1,0 +1,29 @@
+{% extends "cursos/base.html" %}
+
+{% block content %}
+  
+    <h2>Asistencia - {{ sesion.titulo }} </h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <th>Estudiante</th>
+                <th>Presente</th>
+            </tr>
+            {% for ins in inscripciones %}
+            <tr>
+                <td> {{ ins.nombre_estudiante }} </td>
+                <td>
+                    <input type="checkbox" name="presente_{{ ins.id }}" id=""
+                    {% if ins.asistencia_set.first.presente %}
+                      checked
+                    {% endif %}>
+                </td>
+            </tr>
+              
+            {% endfor %}
+        </table>
+        <button type="submit">Guardar Asistencia</button>
+    </form>
+
+{% endblock content %}

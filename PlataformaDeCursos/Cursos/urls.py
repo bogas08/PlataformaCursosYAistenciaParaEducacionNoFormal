@@ -34,6 +34,14 @@ urlpatterns = [
     path('cambiar-password/', views.cambio_password, name='cambio_password'),
     # eliminar material_extra
     path('material/<int:material_id>/eliminar/', views.eliminar_material_extra, name='eliminar_material_extra'),
+    # nueva sesion por curso
+    path('crear_sesion/', views.crear_sesion, name='crear_sesion'),
+    # Toma asistencia
+    path('asistencia/<int:id_sesion>', views.tomar_asistencia, name='tomar_asistencia'),
+    # certificado
+    path('certificado/<int:user>', views.certificado, name='certificado'),
+    # lista sesiones
+    path('lista_sesiones/', views.lista_sesion, name='lista_sesiones')
 ]
 
 

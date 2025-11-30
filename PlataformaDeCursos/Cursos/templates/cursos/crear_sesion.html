@@ -1,0 +1,13 @@
+{% extends "cursos/base.html" %}
+
+{% block content %}
+  
+    <h2>Crear Sesion</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+        <!--<a href=""><button type="button">Cancelar</button></a>-->
+    </form>
+
+{% endblock content %}

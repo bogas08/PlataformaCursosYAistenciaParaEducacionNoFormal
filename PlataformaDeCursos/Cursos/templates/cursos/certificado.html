@@ -1,0 +1,12 @@
+{% extends "cursos/base.html" %}
+
+{% block content %}
+  
+    <h2>Certificado del Curso</h2>
+
+        <p><strong>Estudiante:</strong> {{ inscripcion.nombre_estudiante }} </p>
+        <p><strong>Curso:</strong> {{ inscripcion.curso.titulo }} </p>
+        <p><strong>Asistencia:</strong> {{ porcentaje|floatformat:2 }}% </p>
+
+
+{% endblock content %}

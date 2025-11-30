@@ -1,0 +1,97 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "profe1",
+            "password": "pbkdf2_sha256$260000$xxx", 
+            "email": "profe1@example.com",
+            "is_staff": true
+        }
+    },
+
+    {
+        "model": "Cursos.profesor",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "nombre": "Profesor Juan Pérez",
+            "email": "juan@example.com",
+            "especialidad": "Matemáticas"
+        }
+    },
+
+    {
+        "model": "Cursos.curso",
+        "pk": 1,
+        "fields": {
+            "titulo": "Curso de Álgebra",
+            "descripcion": "Curso introductorio de álgebra.",
+            "fecha_inicio": "2025-01-10",
+            "fecha_fin": "2025-03-10",
+            "profesor": 1
+        }
+    },
+
+    {
+        "model": "Cursos.sesion",
+        "pk": 1,
+        "fields": {
+            "curso": 1,
+            "titulo": "Sesión 1 - Introducción",
+            "fecha": "2025-01-12"
+        }
+    },
+    {
+        "model": "Cursos.sesion",
+        "pk": 2,
+        "fields": {
+            "curso": 1,
+            "titulo": "Sesión 2 - Ecuaciones",
+            "fecha": "2025-01-15"
+        }
+    },
+
+    {
+        "model": "Cursos.inscripcion",
+        "pk": 1,
+        "fields": {
+            "user": null,
+            "nombre_estudiante": "Carlos López",
+            "email_estudiante": "carlos@example.com",
+            "fecha_inscripcion": "2025-01-11",
+            "curso": 1
+        }
+    },
+
+    {
+        "model": "Cursos.asistencia",
+        "pk": 1,
+        "fields": {
+            "inscripcion": 1,
+            "sesion": 1,
+            "presente": true
+        }
+    },
+    {
+        "model": "Cursos.asistencia",
+        "pk": 2,
+        "fields": {
+            "inscripcion": 1,
+            "sesion": 2,
+            "presente": false
+        }
+    },
+
+    {
+        "model": "Cursos.certificado",
+        "pk": 1,
+        "fields": {
+            "inscripcion": 1,
+            "porcentaje_asistencia": 50,
+            "fecha_emision": "2025-03-11",
+            "archivo": ""
+        }
+    }
+]
+

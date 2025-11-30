@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
-from .forms import EditarPerfilForm,InscripcionForm,MaterialExtraForm,PerfilForm,RegistroUsuarioForm
-from .models import Curso, Inscripcion, MaterialExtra, Perfil, Profesor, Progreso, Recurso
+from .forms import EditarPerfilForm,InscripcionForm,MaterialExtraForm,PerfilForm,RegistroUsuarioForm, SesionForm
+from .models import Curso, Inscripcion, MaterialExtra, Perfil, Profesor, Progreso, Recurso, Asistencia, Sesion
 
 # Create your views here.
 # Verifica si el usuario tiene asociado un profesor para inicio de Sesion y redirecciones
@@ -364,3 +364,53 @@ def cambio_password(request):
     else:
         form = PasswordChangeForm(user=request.user)
     return render(request, 'registration/cambio_password.html', {'form': form})
+
+# LISTA SESION
+@login_required
+def lista_sesion(request):
+    sesiones = Sesion.objects.all()
+    return render(request, 'cursos/lista_sesiones.html', {'sesiones': sesiones})
+# CREAR SESION POR CURSO
+@login_required
+def crear_sesion(request):
+    if request.method == 'POST':
+        
+        form = SesionForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('lista_sesiones')
+    else:
+        form = SesionForm()
+    return render(request, 'cursos/crear_sesion.html', {'form': form})
+# TOMAR ASISTENCIA
+@login_required
+def tomar_asistencia(request, id_sesion):
+    sesion = get_object_or_404(Sesion, id=id_sesion)
+    inscripciones = Inscripcion.objects.filter(curso=sesion.curso)
+    
+    if request.method == 'POST':
+        for ins in inscripciones:
+            presente = request.POST.get(f"presente_{ins.id}") == 'on'
+            
+            asistencia, created = Asistencia.objects.get_or_create(
+                inscripcion = ins,
+                sesion=sesion
+            )
+            asistencia.presente = presente
+            asistencia.save()
+        return redirect('lista_cursos')
+    return render(request, 'cursos/tomar_asistencia.html', {
+        'sesion':sesion,
+        'inscripciones': inscripciones    
+    })
+# MOSTRAR CERTIFICADO
+@login_required
+def certificado(request, user):
+    ins = get_object_or_404(Inscripcion, id=user)
+    porcentaje = ins.porcentaje_asistencia()
+    cumple = ins.tiene_certificado(80)
+    return render(request, 'cursos/certificado.html',{
+        'inscripcion': ins,
+        'porcentaje': porcentaje,
+        'cumple': cumple
+    })

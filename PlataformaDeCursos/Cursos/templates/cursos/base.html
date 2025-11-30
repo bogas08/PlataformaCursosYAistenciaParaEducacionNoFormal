@@ -44,7 +44,10 @@
               <a href="{% url 'progreso_estudiante' %}">📈 Ver mi progreso</a>
             {% endif %}
           {% endif %}
-  
+          <!--CREAR CERTIFICADO-->
+          {% if user.username %}
+              <a href="{% url 'certificado' user.id %}">Crear Certificado</a>
+          {% endif %}
           {% if user.is_authenticated %}
             <a href="{% url 'perfil_usuario' %}" class="perfil-usuario-enlace">
               <span class="welcome-text">👤 {{ user.username }}</span>

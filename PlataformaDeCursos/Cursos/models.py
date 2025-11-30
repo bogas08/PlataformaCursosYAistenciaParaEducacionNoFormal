@@ -33,6 +33,16 @@ class Inscripcion(models.Model):
 
     def __str__(self):
         return f"{self.user.username if self.user else self.nombre_estudiante} - {self.curso.titulo}"
+    
+    def porcentaje_asistencia(self):
+        total_sesiones = self.curso.sesiones.count()
+        asistencias = Asistencia.objects.filter(inscripcion=self, presente=True).count()
+        if total_sesiones == 0:
+            return 0
+        return (asistencias * 100) / total_sesiones
+    
+    def tiene_certificado(self, minimo=80):
+        return self.porcentaje_asistencia() >= minimo
 
 class Recurso(models.Model):
     titulo = models.CharField(max_length=200)
@@ -76,3 +86,24 @@ class Perfil(models.Model):
     def __str__(self):
         return f"Perfil de {self.user.username}"
 
+class Sesion(models.Model):
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='sesiones')
+    titulo = models.CharField(max_length=200)
+    fecha = models.DateField()
+    def __str__(self):
+        return f"{self.titulo} - {self.curso.titulo}"
+    
+class Asistencia(models.Model):
+    inscripcion = models.ForeignKey(Inscripcion, on_delete=models.CASCADE)
+    sesion = models.ForeignKey(Sesion, on_delete=models.CASCADE)
+    presente = models.BooleanField(default=False)
+    def __str__(self):
+        return f"{self.inscripcion.nombre_estudiante} - {self.sesion.titulo}"
+    
+class Certificado(models.Model):
+    inscripcion = models.OneToOneField(Inscripcion, on_delete=models.CASCADE)
+    porcentaje_asistencia = models.FloatField()
+    fecha_emision = models.DateField(auto_now_add=True)
+    archivo = models.FileField(upload_to='cetificados/', blank=True, null=True)
+    def __str__(self):
+        return f"Certificado - {self.inscripcion.nombre_estudiante}"

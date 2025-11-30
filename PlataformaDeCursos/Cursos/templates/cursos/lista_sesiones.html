@@ -1,0 +1,26 @@
+{% extends "cursos/base.html" %}
+
+{% block content %}
+    <h2>Lista Sesiones</h2>
+    <table border="1">
+        <tr>
+            <th>CURSO</th>
+            <th>TITULO</th>
+            <th>FECHA</th>
+        </tr>
+        {% for sesion in sesiones %}
+            <tr>
+                <td> {{ sesion.curso.titulo }} </td>
+                <td> {{ sesion.titulo }} </td>
+                <td> {{ sesion.fecha }} </td>
+                <td> <a href="{% url 'tomar_asistencia' sesion.id %}">tomar asistencia</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No hay sesiones registradas</td>
+            </tr>
+          
+        {% endfor %}
+    </table>
+
+{% endblock content %}
