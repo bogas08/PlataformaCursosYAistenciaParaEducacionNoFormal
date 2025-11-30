@@ -3,10 +3,12 @@
 {% block content %}
   
     <h2>Certificado del Curso</h2>
-
+    {% if porcentaje > 80 %}
         <p><strong>Estudiante:</strong> {{ inscripcion.nombre_estudiante }} </p>
         <p><strong>Curso:</strong> {{ inscripcion.curso.titulo }} </p>
         <p><strong>Asistencia:</strong> {{ porcentaje|floatformat:2 }}% </p>
-
+    {% else %}
+        <h3>usted NO tiene un minimo de asistencias para certificado</h3>
+    {% endif %}
 
 {% endblock content %}
