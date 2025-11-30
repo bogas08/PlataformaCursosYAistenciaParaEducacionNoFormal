@@ -1,0 +1,12 @@
+# Entorno Virtual
+env/
+venv/
+ENV/
+.venv
+*.env
+venv/
+/venv/
+/.env
+/env/
+.env
+.env.local
